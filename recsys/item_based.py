@@ -46,6 +46,8 @@ class ItemBasedRecommender(Recommender):
     
     def learn_model(self, f):
         print "Learning Item Based Model: %s" % f
+        from time import time
+        start = time()
         c, tot = 0, len(self.items.keys())
         with open(f, 'w') as model:
             for item_id in self.items.keys():
@@ -54,6 +56,7 @@ class ItemBasedRecommender(Recommender):
                 s = self.similars(item_id, self.model_size)
                 self.item_similars[item_id] = s
                 model.write(dumps([item_id] + s) + '\n')
+        print 'completed in (%d)s' % (time() - start)
     
     def load_model(self, f):
         print "Loading Item Base Model: %s" % f

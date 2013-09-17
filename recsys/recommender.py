@@ -44,6 +44,7 @@ class Recommender:
     
     def similars(self, a, limit=10):
         scores = [(self.score(a, b), b) for b in self.table.keys() if b != a]
+        scores = [s for s in scores if s[0] > 0]
         scores.sort(reverse=True)
         return subset(scores, limit)
     
